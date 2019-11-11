@@ -80,7 +80,7 @@ const Form = props => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              <p className="text-center invalid-feedback my-1">
+              <p className="Form__error-msg text-center invalid-feedback my-1">
                 {validator.errMsg}
               </p>
             </div>
