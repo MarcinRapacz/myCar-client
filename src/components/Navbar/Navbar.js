@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import "./Navbar.scss";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FaBars } from "react-icons/fa";
 
+// Actions
+import { logoutUser } from "../../actions/authenticationActions";
+
 const Navbar = () => {
+  const dispatch = useDispatch();
   const auth = useSelector(s => s.auth);
   const [show, setShow] = useState(false);
 
   const showMenu = () => setShow(true);
   const hideMenu = () => setShow(false);
+
+  const handleLogout = () => dispatch(logoutUser());
 
   return (
     <nav className="Navbar">
@@ -28,9 +34,13 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li className="Navbar__list-item">
-                <NavLink className="Navbar__link" to="/logout">
+                <Link
+                  className="Navbar__link"
+                  to="/login"
+                  onClick={handleLogout}
+                >
                   Wyloguj
-                </NavLink>
+                </Link>
               </li>
             </>
           ) : (

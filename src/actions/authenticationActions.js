@@ -1,6 +1,8 @@
 import axios from "axios";
-import jwt from "jsonwebtoken";
-import { SET_USER } from "./actionTypes";
+import { SET_USER, REMOVE_USER } from "./actionTypes";
+
+// Utils
+import { setToken, decodeToken, removeToken } from "../utils/jwt";
 
 // Actions
 import { showModal } from "./modalActions";
@@ -10,10 +12,31 @@ export const setUser = payload => ({
   payload
 });
 
+export const removeUser = () => ({
+  type: REMOVE_USER
+});
+
+export const logoutUser = () => dispatch => {
+  removeToken();
+
+  dispatch(
+    showModal({
+      text: "Wylogowano z aplikcaji",
+      color: "success"
+    })
+  );
+
+  dispatch(removeUser());
+};
+
 export const loginUser = payload => async dispatch => {
   try {
     const res = await axios.post("/api/v1/authentication/login/", payload);
-    const decoded = jwt.decode(res.data.content.token);
+    const { token } = res.data.content;
+    const decoded = decodeToken(token);
+
+    setToken(token);
+
     dispatch(setUser(decoded));
     dispatch(
       showModal({
@@ -47,7 +70,11 @@ export const loginUser = payload => async dispatch => {
 export const registerUser = payload => async dispatch => {
   try {
     const res = await axios.post("/api/v1/authentication/create/", payload);
-    const decoded = jwt.decode(res.data.content.token);
+    const { token } = res.data.content;
+    const decoded = decodeToken(token);
+
+    setToken(token);
+
     dispatch(setUser(decoded));
     dispatch(
       showModal({

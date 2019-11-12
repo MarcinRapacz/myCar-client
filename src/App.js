@@ -1,9 +1,7 @@
 import React from "react";
-import { Provider } from "react-redux";
+import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
-
-import store from "./store";
 
 // Components
 import Navbar from "./components/Navbar/Navbar";
@@ -13,20 +11,33 @@ import Modal from "./components/Modal/Modal";
 import Login from "./layouts/Login/Login";
 import Register from "./layouts/Register/Register";
 
+// Utils
+import { getToken, decodeToken } from "./utils/jwt";
+
+// Actions
+import { setUser } from "./actions/authenticationActions";
+
 function App() {
+  const dispatch = useDispatch();
+
+  // Check if client is log in
+  const token = getToken();
+  if (token) {
+    const decoded = decodeToken(token);
+    dispatch(setUser(decoded));
+  }
+
   return (
-    <Provider store={store}>
-      <div className="App">
-        <Modal />
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-          </Switch>
-        </Router>
-      </div>
-    </Provider>
+    <div className="App">
+      <Modal />
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+        </Switch>
+      </Router>
+    </div>
   );
 }
 
