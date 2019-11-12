@@ -15,11 +15,16 @@ const Modal = () => {
   };
 
   return (
-    <section
-      className={`Modal text-center ${modal.show && "Modal--show"}`}
-      onClick={handleClick}
-    >
-      <div className="Modal__container">
+    <section className="Modal text-center">
+      <div
+        className={`Modal__backdrop ${modal.backdrop &&
+          "Modal__backdrop--show"}`}
+        onClick={handleClick}
+      ></div>
+      <div
+        className={`Modal__container ${modal.show && "Modal--show"}`}
+        onClick={handleClick}
+      >
         <div
           className={`card border-${modal.color}`}
           style={{ maxWidth: "24rem" }}
