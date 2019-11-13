@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import "./Form.scss";
 
@@ -51,13 +52,14 @@ const Form = props => {
     checkFromIsValid();
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     const payload = {};
     config.inputs.forEach(i => (payload[i.name] = i.value));
 
-    dispatch(config.action(payload));
+    const isSuccess = await dispatch(config.action(payload));
+    isSuccess && props.history.replace("/car");
   };
 
   return (
@@ -101,4 +103,4 @@ const Form = props => {
   );
 };
 
-export default Form;
+export default withRouter(Form);

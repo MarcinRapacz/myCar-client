@@ -21,7 +21,7 @@ export const logoutUser = () => dispatch => {
 
   dispatch(
     showModal({
-      text: "Wylogowano z aplikcaji",
+      text: "Wylogowano z aplikacji",
       color: "success"
     })
   );
@@ -44,6 +44,7 @@ export const loginUser = payload => async dispatch => {
         color: "success"
       })
     );
+    return true;
   } catch (error) {
     const { msg } = error.response.data;
     let text = "";
@@ -82,6 +83,7 @@ export const registerUser = payload => async dispatch => {
         color: "success"
       })
     );
+    return true;
   } catch (error) {
     const { msg } = error.response.data;
     let text = "";
