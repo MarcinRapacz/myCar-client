@@ -3,6 +3,7 @@ import { SET_USER, REMOVE_USER } from "./actionTypes";
 
 // Utils
 import { setToken, decodeToken, removeToken } from "../utils/jwt";
+import { handleError } from "../utils/error";
 
 // Actions
 import { showModal } from "./modalActions";
@@ -16,8 +17,14 @@ export const removeUser = () => ({
   type: REMOVE_USER
 });
 
+export const setAuthHeader = (token = null) =>
+  (axios.defaults.headers.common["Authorization"] = token
+    ? `Bearer ${token}`
+    : "");
+
 export const logoutUser = () => dispatch => {
   removeToken();
+  setAuthHeader();
 
   dispatch(
     showModal({
@@ -36,6 +43,7 @@ export const loginUser = payload => async dispatch => {
     const decoded = decodeToken(token);
 
     setToken(token);
+    setAuthHeader(token);
 
     dispatch(setUser(decoded));
     dispatch(
@@ -46,25 +54,7 @@ export const loginUser = payload => async dispatch => {
     );
     return true;
   } catch (error) {
-    const { msg } = error.response.data;
-    let text = "";
-    switch (msg) {
-      case "Validation Field":
-        text = "Podane dane nie przeszły pomyślnie walidacji danych";
-        break;
-      case "Invalid credentials":
-        text = "Podano niewłaściwe dane logowania";
-        break;
-      default:
-        text = "Nieoczekiwany błąd, spróbuj ponownie";
-        break;
-    }
-    dispatch(
-      showModal({
-        text,
-        color: "danger"
-      })
-    );
+    handleError(error);
   }
 };
 
@@ -75,6 +65,7 @@ export const registerUser = payload => async dispatch => {
     const decoded = decodeToken(token);
 
     setToken(token);
+    setAuthHeader(token);
 
     dispatch(setUser(decoded));
     dispatch(
@@ -85,24 +76,6 @@ export const registerUser = payload => async dispatch => {
     );
     return true;
   } catch (error) {
-    const { msg } = error.response.data;
-    let text = "";
-    switch (msg) {
-      case "Validation Field":
-        text = "Podane dane nie przeszły pomyślnie walidacji danych";
-        break;
-      case "User already exists":
-        text = "Użytkownik o podanym adresie emial już istnieje";
-        break;
-      default:
-        text = "Nieoczekiwany błąd, spróbuj ponownie";
-        break;
-    }
-    dispatch(
-      showModal({
-        text,
-        color: "danger"
-      })
-    );
+    handleError(error);
   }
 };

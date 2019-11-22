@@ -14,7 +14,7 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, ...payload, show: true, backdrop: true };
 
     case HIDE_MODAL:
-      return { ...state, show: false, backdrop: false };
+      return initialState;
 
     default:
       return state;

@@ -12,3 +12,8 @@ export const decodeToken = token => {
   const decoded = jwt.decode(token);
   return decoded;
 };
+
+export const expiredToken = () => {
+  window.history.replaceState({}, "", "/login");
+  removeToken();
+};

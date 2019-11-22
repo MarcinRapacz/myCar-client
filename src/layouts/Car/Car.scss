@@ -1,0 +1,25 @@
+.Car {
+  &__field {
+    align-items: center;
+    @media (min-width: 800px) {
+      flex-direction: row !important;
+    }
+  }
+
+  &__field-item {
+    letter-spacing: 1px;
+    text-align: center;
+    @media (min-width: 800px) {
+      flex-basis: 200px;
+    }
+
+    @media (min-width: 800px) {
+      text-align: right;
+    }
+    &--second {
+      flex-grow: 1;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+}
