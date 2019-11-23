@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Formik, Form } from "formik";
@@ -9,6 +9,7 @@ import { showModal } from "../../actions/modalActions";
 // Components
 import SelectInput from "../../components/SelectInput/SelectInput";
 import TextInput from "../../components/TextInput/TextInput";
+import Spinner from "../../components/Spinner/Spinner";
 
 // Create Car Helpers
 import {
@@ -20,6 +21,7 @@ import {
 
 const CreateCar = props => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const initialValues = useMemo(
     () => ({
@@ -41,6 +43,7 @@ const CreateCar = props => {
 
   const handleSubmit = useCallback(async values => {
     try {
+      setLoading(true);
       const res = await axios.post("/api/v1/car", values);
       dispatch(showModal({ text: "Pojazd został dodany", color: "success" }));
       props.history.push(`/car/${res.data.content.car._id}`);
@@ -53,7 +56,7 @@ const CreateCar = props => {
   return (
     <div className="CreateCar container">
       <div className="row">
-        <div className="col-6">
+        <div className="col-12 col-md-6 offset-md-3">
           <h3>Dodaj nowy pojazd</h3>
           <Formik
             initialValues={initialValues}
@@ -123,12 +126,16 @@ const CreateCar = props => {
                     type="date"
                   />
                 </div>
-                <button
-                  className="btn btn-block btn-outline-primary"
-                  type="submit"
-                >
-                  Dodaj pojazd
-                </button>
+                {loading ? (
+                  <Spinner />
+                ) : (
+                  <button
+                    className="btn btn-block btn-outline-primary"
+                    type="submit"
+                  >
+                    Dodaj pojazd
+                  </button>
+                )}
               </Form>
             )}
           </Formik>

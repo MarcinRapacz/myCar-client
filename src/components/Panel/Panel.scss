@@ -18,5 +18,12 @@
       background-color: #001f3f;
       color: #fff;
     }
+
+    &--danger {
+      &:hover {
+        color: #fff;
+        background-color: #dc3545;
+      }
+    }
   }
 }

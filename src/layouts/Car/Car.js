@@ -1,8 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Moment from "react-moment";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./Car.scss";
+
+// Actions
+import { showModal } from "../../actions/modalActions";
 
 // Languages
 import { translatorCar } from "../../lang/translator";
@@ -29,10 +33,14 @@ const CarField = props => {
   );
 };
 
-const Car = () => {
+const Car = props => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [car, setCar] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const user = useSelector(v => v.auth);
+  const ownership = user.id === car.user;
 
   useEffect(() => {
     getCar(id);
@@ -47,6 +55,16 @@ const Car = () => {
       handleError(error);
     } finally {
       setLoading(false);
+    }
+  }, []);
+
+  const removeCar = useCallback(async () => {
+    try {
+      await axios.delete(`/api/v1/car/${id}`);
+      dispatch(showModal({ text: "Pojazd został usunięty", color: "success" }));
+      props.history.replace("/car");
+    } catch (error) {
+      handleError(error);
     }
   }, []);
 
@@ -93,7 +111,7 @@ const Car = () => {
           )}
         </div>
         <div className="col-3 col-md-2 ">
-          <Panel />
+          {ownership && <Panel remove={removeCar} />}
         </div>
       </div>
     </section>
