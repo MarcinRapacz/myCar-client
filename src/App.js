@@ -14,6 +14,7 @@ import Page404 from "./layouts/Page404/Page404";
 import CarsList from "./layouts/CarsList/CarsList";
 import Car from "./layouts/Car/Car";
 import CreateCar from "./layouts/CreateCar/CreateCar";
+import EditCar from "./layouts/EditCar/EditCar";
 
 // Utils
 import { getToken, decodeToken, expiredToken } from "./utils/jwt";
@@ -51,6 +52,7 @@ function App() {
           {auth.id && <Route exact path="/car" component={CarsList} />}
           {auth.id && <Route exact path="/car/new" component={CreateCar} />}
           {auth.id && <Route exact path="/car/:id" component={Car} />}
+          {auth.id && <Route exact path="/car/:id/edit" component={EditCar} />}
 
           {/* User is not log in */}
           {!auth.id && <Route exact path="/login" component={Login} />}

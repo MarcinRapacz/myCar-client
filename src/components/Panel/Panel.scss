@@ -21,8 +21,12 @@
 
     &--danger {
       &:hover {
-        color: #fff;
         background-color: #dc3545;
+      }
+    }
+    &--edit {
+      &:hover {
+        background-color: #ffc107;
       }
     }
   }

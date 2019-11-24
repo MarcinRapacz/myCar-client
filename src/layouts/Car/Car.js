@@ -66,6 +66,7 @@ const Car = props => {
     } catch (error) {
       handleError(error);
     }
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -111,7 +112,7 @@ const Car = props => {
           )}
         </div>
         <div className="col-3 col-md-2 ">
-          {ownership && <Panel remove={removeCar} />}
+          {ownership && <Panel remove={removeCar} car={car} />}
         </div>
       </div>
     </section>
