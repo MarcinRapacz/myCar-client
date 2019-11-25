@@ -25,3 +25,12 @@ export const taxi = "Taxi";
 export const drivingCourse = "Nauka jazdy";
 
 export const different = "Inny";
+
+// Owners
+export const man = "Mężczyzna";
+export const woman = "Kobieta";
+
+export const single = "Singielka / Singiel";
+export const divorced = "Rozwiedziona / Rozwiedziony";
+export const widower = "Wdowa / Wdowiec";
+export const married = "Małżeństwo";

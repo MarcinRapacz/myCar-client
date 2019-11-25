@@ -17,6 +17,7 @@ import { handleError } from "../../utils/error";
 // Components
 import Spinner from "../../components/Spinner/Spinner";
 import Panel from "../../components/Panel/Panel";
+import OwnerList from "../../components/OwnerList/OwnerList";
 
 const CarField = props => {
   let desc = "";
@@ -113,6 +114,9 @@ const Car = props => {
         </div>
         <div className="col-3 col-md-2 ">
           {ownership && <Panel remove={removeCar} car={car} />}
+        </div>
+        <div className="col-12">
+          <OwnerList carId={id} />
         </div>
       </div>
     </section>

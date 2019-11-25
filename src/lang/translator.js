@@ -82,3 +82,34 @@ export const translatorCar = text => {
 
   return translatedText;
 };
+
+export const translatorOwner = text => {
+  let translatedText;
+
+  switch (text) {
+    case "man":
+      translatedText = translated.man;
+      break;
+    case "woman":
+      translatedText = translated.woman;
+      break;
+    case "single":
+      translatedText = translated.single;
+      break;
+    case "divorced":
+      translatedText = translated.divorced;
+      break;
+    case "widower":
+      translatedText = translated.widower;
+      break;
+    case "married":
+      translatedText = translated.married;
+      break;
+
+    default:
+      translatedText = "- - -";
+      break;
+  }
+
+  return translatedText;
+};

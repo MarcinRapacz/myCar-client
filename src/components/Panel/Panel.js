@@ -13,7 +13,9 @@ import "./Panel.scss";
 const Panel = ({ car, remove }) => {
   return (
     <section className="Panel">
-      <FaUsers className="Panel__icon" />
+      <Link to={`/car/${car.id}/owner`}>
+        <FaUsers className="Panel__icon" />
+      </Link>
       <FaCalendarAlt className="Panel__icon" />
       <FaFileAlt className="Panel__icon" />
       <FaCarCrash className="Panel__icon" />

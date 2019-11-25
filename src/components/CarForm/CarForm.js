@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { Formik, Form } from "formik";
 
 // Components
@@ -14,7 +15,12 @@ import {
   validate
 } from "./CarFormHelper";
 
-const CarForm = ({ initialValues, handleSubmit, loading }) => {
+const CarForm = ({ initialValues, handleSubmit, loading, ...props }) => {
+  const handleCancel = () => {
+    initialValues._id = initialValues._id ? `/${initialValues._id}` : "";
+    props.history.push(`/car${initialValues._id}`);
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -87,9 +93,21 @@ const CarForm = ({ initialValues, handleSubmit, loading }) => {
           {loading ? (
             <Spinner />
           ) : (
-            <button className="btn btn-block btn-outline-primary" type="submit">
-              Zapisz
-            </button>
+            <div className="btn-group col-12 p-0">
+              <button
+                className="btn col-7 col-md-9 btn-outline-primary"
+                type="submit"
+              >
+                Zapisz
+              </button>
+              <button
+                type="button"
+                onClick={handleCancel}
+                className="btn col-5 col-md-3 btn-outline-danger"
+              >
+                Anuluj
+              </button>
+            </div>
           )}
         </Form>
       )}
@@ -97,4 +115,4 @@ const CarForm = ({ initialValues, handleSubmit, loading }) => {
   );
 };
 
-export default CarForm;
+export default withRouter(CarForm);
