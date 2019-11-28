@@ -61,6 +61,7 @@ const OwnerEdit = props => {
             loading={loading}
             initialValues={initialValues}
             handleSubmit={handleSubmit}
+            car={owner.car}
           />
         </div>
       </div>

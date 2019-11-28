@@ -18,6 +18,7 @@ import { handleError } from "../../utils/error";
 import Spinner from "../../components/Spinner/Spinner";
 import Panel from "../../components/Panel/Panel";
 import OwnerList from "../../components/OwnerList/OwnerList";
+import InsuranceDetails from "../../components/InsuranceDetails/InsuranceDetails";
 
 const CarField = props => {
   let desc = "";
@@ -39,6 +40,7 @@ const Car = props => {
   const dispatch = useDispatch();
   const [car, setCar] = useState({});
   const [loading, setLoading] = useState(true);
+  const [insurance, setInsurance] = useState(false);
 
   const user = useSelector(v => v.auth);
   const ownership = user.id === car.user;
@@ -109,11 +111,19 @@ const Car = props => {
                   </Moment>
                 }
               />
+              <div className="col-12 p-0">
+                <InsuranceDetails
+                  carId={id}
+                  isInsurance={v => setInsurance(v)}
+                />
+              </div>
             </>
           )}
         </div>
         <div className="col-3 col-md-2 ">
-          {ownership && <Panel remove={removeCar} car={car} />}
+          {ownership && (
+            <Panel remove={removeCar} car={car} insurance={insurance} />
+          )}
         </div>
         <div className="col-12">
           <OwnerList carId={id} />

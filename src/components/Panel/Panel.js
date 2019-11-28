@@ -10,13 +10,17 @@ import {
 } from "react-icons/fa";
 import "./Panel.scss";
 
-const Panel = ({ car, remove }) => {
+const Panel = ({ car, remove, insurance }) => {
   return (
     <section className="Panel">
       <Link to={`/car/${car.id}/owner`}>
         <FaUsers className="Panel__icon" />
       </Link>
-      <FaCalendarAlt className="Panel__icon" />
+      {!insurance && (
+        <Link to={{ pathname: `/car/${car.id}/insurance` }}>
+          <FaCalendarAlt className="Panel__icon" />
+        </Link>
+      )}
       <FaFileAlt className="Panel__icon" />
       <FaCarCrash className="Panel__icon" />
       <Link to={{ pathname: `/car/${car.id}/edit`, state: { car } }}>

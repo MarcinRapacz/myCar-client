@@ -79,7 +79,10 @@ const validate = values => {
 };
 
 const OwnerForm = ({ initialValues, handleSubmit, loading, ...props }) => {
-  const handleCancel = () => props.history.push(`/car/${initialValues.car}`);
+  const handleCancel = () => {
+    const id = props.car || props.match.params.id;
+    props.history.push(`/car/${id}`);
+  };
 
   return (
     <Formik

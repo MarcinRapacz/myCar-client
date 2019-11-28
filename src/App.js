@@ -17,6 +17,8 @@ import CreateCar from "./layouts/CreateCar/CreateCar";
 import EditCar from "./layouts/EditCar/EditCar";
 import CreateOwner from "./layouts/CreateOwner/CreateOwner";
 import OwnerEdit from "./layouts/OwnerEdit/OwnerEdit";
+import InsuranceCreate from "./layouts/InsuranceCreate/InsuranceCreate";
+import InsuranceEdit from "./layouts/InsuranceEdit/InsuranceEdit";
 
 // Utils
 import { getToken, decodeToken, expiredToken } from "./utils/jwt";
@@ -56,12 +58,21 @@ function App() {
           {auth.id && <Route exact path="/car/:id" component={Car} />}
           {auth.id && <Route exact path="/car/:id/edit" component={EditCar} />}
 
-          {/* Owner */}
           {auth.id && (
             <Route exact path="/car/:id/owner" component={CreateOwner} />
           )}
           {auth.id && (
+            <Route
+              exact
+              path="/car/:id/insurance"
+              component={InsuranceCreate}
+            />
+          )}
+          {auth.id && (
             <Route exact path="/owner/:id/edit" component={OwnerEdit} />
+          )}
+          {auth.id && (
+            <Route exact path="/insurance/:id/edit" component={InsuranceEdit} />
           )}
 
           {/* User is not log in */}
