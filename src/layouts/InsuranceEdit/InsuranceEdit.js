@@ -17,8 +17,6 @@ const InsuranceEdit = props => {
 
   const dispatch = useDispatch();
   let insurance = {};
-  if (props.location.state) {
-  }
 
   if (props.location.state) {
     insurance = props.location.state.insurance;

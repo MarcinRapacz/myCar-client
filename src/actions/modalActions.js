@@ -4,6 +4,11 @@ export const hideModal = () => ({
   type: HIDE_MODAL
 });
 
+/**
+ * Show modal
+ * @payload color: String - default primary
+ * @payload text: String - required
+ */
 export const showModal = payload => dispatch => {
   const timeoutID = setTimeout(() => {
     dispatch(hideModal());

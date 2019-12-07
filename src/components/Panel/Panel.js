@@ -22,7 +22,9 @@ const Panel = ({ car, remove, insurance }) => {
         </Link>
       )}
       <FaFileAlt className="Panel__icon" />
-      <FaCarCrash className="Panel__icon" />
+      <Link to={`/car/${car.id}/collision`}>
+        <FaCarCrash className="Panel__icon" />
+      </Link>
       <Link to={{ pathname: `/car/${car.id}/edit`, state: { car } }}>
         <FaEdit className="Panel__icon Panel__icon--edit" />
       </Link>

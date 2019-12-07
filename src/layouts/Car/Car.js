@@ -19,6 +19,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import Panel from "../../components/Panel/Panel";
 import OwnerList from "../../components/OwnerList/OwnerList";
 import InsuranceDetails from "../../components/InsuranceDetails/InsuranceDetails";
+import CollisionList from "../../components/CollisionList/CollisionList";
 
 const CarField = props => {
   let desc = "";
@@ -127,6 +128,9 @@ const Car = props => {
         </div>
         <div className="col-12">
           <OwnerList carId={id} />
+        </div>
+        <div className="col-12">
+          <CollisionList carId={id} />
         </div>
       </div>
     </section>
